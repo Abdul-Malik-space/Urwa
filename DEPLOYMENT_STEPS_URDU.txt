@@ -1,0 +1,46 @@
+DashBoard2 Vercel Deployment Steps
+
+1) GitHub repo me ye clean project upload karein.
+   Important: node_modules aur .env upload na karein.
+
+2) Backend project deploy karein:
+   - Vercel > Add New Project
+   - Same GitHub repo select karein
+   - Root Directory: backend
+   - Environment Variables:
+     MONGO_URI = your MongoDB Atlas URI
+     CLIENT_URL = https://your-frontend.vercel.app
+   - Deploy
+   - Test URL: https://your-backend.vercel.app/health
+
+3) Frontend project deploy karein:
+   - Vercel > Add New Project
+   - Same GitHub repo select karein
+   - Root Directory: frontend
+   - Framework Preset: Vite
+   - Build Command: npm run build
+   - Output Directory: dist
+   - Environment Variables:
+     VITE_API_URL = https://your-backend.vercel.app/api
+   - Deploy
+
+4) Backend me CLIENT_URL update karein:
+   - Frontend deploy hone ke baad frontend ka final Vercel URL copy karein
+   - Backend project > Settings > Environment Variables
+   - CLIENT_URL me frontend URL paste karein
+   - Backend ko redeploy karein
+
+5) MongoDB Atlas:
+   - Network Access me IP allow karein.
+   - Development/testing ke liye 0.0.0.0/0 use kar sakte hain.
+   - Production ke liye restricted access better hai.
+
+Changes made in this ready version:
+- frontend/vite.config.js se GitHub Pages base remove kiya
+- frontend imports me Pages folder case fix kiya
+- settings aur units API URLs ko VITE_API_URL se connect kiya
+- Brand list API /brands par fix ki
+- backend server.js me Vercel-friendly module.exports add kiya
+- backend CORS CLIENT_URL env variable se set kiya
+- .env.example files add ki
+- node_modules aur .env remove ki
